@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet Usage Analysis Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .card label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .card input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dcdde1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        button:hover {
+            opacity: 0.95;
+        }
+
+        .result {
+            display: none;
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .result h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        .behavior {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .advice {
+            text-align: center;
+            background: #eef2ff;
+            padding: 15px;
+            border-radius: 10px;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📊 Internet Usage Analysis Dashboard</h1>
+    <p class="subtitle">Analyze user behavior and generate recommendations</p>
+
+    <div class="grid">
+        <div class="card">
+            <label>📱 App Usage Time (minutes)</label>
+            <input type="number" id="appUsage" value="200">
+        </div>
+
+        <div class="card">
+            <label>📶 Data Usage (MB)</label>
+            <input type="number" id="dataUsage" value="1500">
+        </div>
+
+        <div class="card">
+            <label>📦 Installed Apps</label>
+            <input type="number" id="apps" value="50">
+        </div>
+
+        <div class="card">
+            <label>🎂 Age</label>
+            <input type="number" id="age" value="25">
+        </div>
+    </div>
+
+    <button onclick="analyzeUsage()">🚀 Analyze</button>
+
+    <div class="result" id="result">
+        <h2>📌 Analysis Result</h2>
+        <div class="score" id="score"></div>
+        <div class="behavior" id="behavior"></div>
+        <div class="advice" id="advice"></div>
+    </div>
+</div>
+
+<script>
+function analyzeUsage() {
+    const appUsage = parseFloat(document.getElementById('appUsage').value) || 0;
+    const dataUsage = parseFloat(document.getElementById('dataUsage').value) || 0;
+    const apps = parseFloat(document.getElementById('apps').value) || 0;
+
+    const score =
+        (appUsage / 500) * 40 +
+        (dataUsage / 5000) * 40 +
+        (apps / 200) * 20;
+
+    let behavior = "";
+    let advice = "";
+    let color = "";
+
+    if (score > 70) {
+        behavior = "🔴 Heavy User";
+        advice = "Reduce screen time and data consumption.";
+        color = "#e74c3c";
+    } else if (score > 40) {
+        behavior = "🟡 Moderate User";
+        advice = "Try to manage your usage better.";
+        color = "#f39c12";
+    } else {
+        behavior = "🟢 Light User";
+        advice = "Good behavior, keep it up!";
+        color = "#27ae60";
+    }
+
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('score').textContent = score.toFixed(1) + "%";
+    document.getElementById('score').style.color = color;
+    document.getElementById('behavior').textContent = behavior;
+    document.getElementById('behavior').style.color = color;
+    document.getElementById('advice').textContent = advice;
+}
+</script>
+
+</body>
+</html>
